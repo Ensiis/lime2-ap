@@ -12,6 +12,7 @@ rm /etc/network/interfaces
 ln -s  /etc/network/interfaces.ap  /etc/network/interfaces
 
 echo -n "Starting upgrade..."
+apt-mark hold linux-image-next-sunxi linux-dtb-next-sunxi linux-headers-next-sunxi
 apt-get update
 apt-get -y upgrade
 apt-get -y install dnsmasq
