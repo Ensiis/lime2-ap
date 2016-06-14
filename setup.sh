@@ -41,7 +41,7 @@ iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACC
 iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
 sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
-echo 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.ap
+echo -n 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.ap
 update-rc.d dnsmasq enable
 
 echo -n "You can now reboot the board with the command 'sudo reboot'!"
