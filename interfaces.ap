@@ -8,3 +8,4 @@ netmask 255.255.255.0
 
 auto lo
 iface lo inet loopback
+
