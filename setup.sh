@@ -34,7 +34,7 @@ read password
 sed -ri "s/_PASSWORD/$password/g" /etc/hostapd-ap.conf
 
 sed -ri 's/DAEMON_CONF=/DAEMON_CONF=\/etc\/hostapd-ap.conf/g' /etc/init.d/hostapd
-sed -ri 's/DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd-ap.conf"/g' /etc/default/hostapd
+sed -ri 's/#DAEMON_CONF=""/DAEMON_CONF="\/etc\/hostapd-ap.conf"/g' /etc/default/hostapd
 sed -ri 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
 
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
