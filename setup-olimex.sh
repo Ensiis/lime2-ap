@@ -1,3 +1,13 @@
+sed -ri 's/auto_login/#auto_login/g' /etc/lightdm/lightdm.conf
+
+echo -n "Enter the new sudo user we are going to create and press [ENTER]: "
+read newuser
+adduser $newuser
+echo "$newuser ALL=(ALL:ALL) ALL" > /etc/sudoers.d/$newuser
+
+echo -n "Choose a new password for the root user: "
+passwd root
+
 echo -n "Enter the new hostname of your board and press [ENTER]: "
 read newhostname
 
@@ -12,6 +22,8 @@ rm /etc/network/interfaces
 ln -s  /etc/network/interfaces.ap  /etc/network/interfaces
 
 echo -n "Starting upgrade..."
+apt-get remove --purge gnome-* xserver-* desktop-* apache2 crtmpserver  
+apt-get autoremove  
 apt-mark hold linux-image-next-sunxi linux-dtb-next-sunxi linux-headers-next-sunxi linux-firmware-image-next-sunxi linux-jessie-root-next-lime2 linux-u-boot-lime2-next
 apt-get update
 apt-get -y upgrade
@@ -44,11 +56,11 @@ sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.ap
 update-rc.d dnsmasq enable
+update-rc.d hostapd enable  
 
-echo -n "Resizing the partition..."
+echo -n "The board is going to be rebooted when you press [enter], and then the partition will be extended."
+read enter
+
+echo -n "Resizing "
 cd /root
 resize_sd.sh /dev/mmcblk0 2
-
-echo -n "The board is going to be rebooted when you press [enter]"
-read enter
-reboot
