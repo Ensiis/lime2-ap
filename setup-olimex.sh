@@ -45,4 +45,10 @@ sh -c "iptables-save > /etc/iptables.ipv4.nat"
 echo 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.ap
 update-rc.d dnsmasq enable
 
-echo -n "You can now reboot the board with the command 'sudo reboot'!"
+echo -n "Resizing the partition..."
+cd /root
+resize_sd.sh /dev/mmcblk0 2
+
+echo -n "The board is going to be rebooted when you press [enter]"
+read enter
+reboot
