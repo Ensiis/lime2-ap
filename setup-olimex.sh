@@ -5,7 +5,7 @@ read newuser
 adduser $newuser
 echo "$newuser ALL=(ALL:ALL) ALL" > /etc/sudoers.d/$newuser
 
-echo -n "Choose a new password for the root user: "
+echo "Choose a new password for the root user: "
 passwd root
 
 echo -n "Enter the new hostname of your board and press [ENTER]: "
@@ -22,12 +22,12 @@ rm /etc/network/interfaces
 ln -s  /etc/network/interfaces.ap  /etc/network/interfaces
 
 echo -n "Starting upgrade..."
-apt-get remove --purge gnome-* xserver-* desktop-* apache2 crtmpserver  
-apt-get autoremove  
+apt-get -y remove --purge gnome-* xserver-* desktop-* apache2 crtmpserver  
+apt-get -y autoremove  
 apt-mark hold linux-image-next-sunxi linux-dtb-next-sunxi linux-headers-next-sunxi linux-firmware-image-next-sunxi linux-jessie-root-next-lime2 linux-u-boot-lime2-next
 apt-get update
 apt-get -y upgrade
-apt-get -y install dnsmasq hostapd
+apt-get -y install dnsmasq hostapd build-essential libusb-1.0
 echo -n "Enter the start of the IP range used by the DHCP server (i.e. 192.168.10.2) and press [ENTER]: "
 read ipstart
 echo -n "Enter the end of the IP range used by the DHCP server (i.e. 192.168.10.254) and press [ENTER]: "
@@ -56,7 +56,18 @@ sh -c "iptables-save > /etc/iptables.ipv4.nat"
 
 echo 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.ap
 update-rc.d dnsmasq enable
-update-rc.d hostapd enable  
+update-rc.d hostapd enable
+
+mkdir /fex
+mount /dev/mmcblk0p1 /fex
+cp script.fex /root
+cd /root
+git clone https://github.com/linux-sunxi/sunxi-tools  
+cd sunxi-tools
+make
+#./bin2fex /fex/script.bin > /fex/script.fex
+cp /fex/script.bin /fex/script.bin.save
+./fex2bin /root/script.fex /fex/script.bin
 
 echo -n "The board is going to be rebooted when you press [enter], and then the partition will be extended."
 read enter
