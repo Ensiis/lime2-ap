@@ -20,3 +20,4 @@ cp /fex/script.bin /fex/script.bin.save
 
 echo -n "The board is going to be rebooted when you press [enter]:"
 read enter
+reboot

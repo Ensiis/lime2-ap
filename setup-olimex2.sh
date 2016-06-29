@@ -54,4 +54,4 @@ read enter
 
 echo -n "Resizing "
 cd /root
-resize_sd.sh /dev/mmcblk0 2
+./resize_sd.sh /dev/mmcblk0 2
