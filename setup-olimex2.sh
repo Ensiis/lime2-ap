@@ -12,6 +12,7 @@ read newhostname
 sed -ri "s/A20-OLinuXino/$newhostname/g" /etc/hostname
 sed -ri "s/A20-OLinuXino/$newhostname/g" /etc/hosts
 
+apt-get install -y dnsmasq hostapd
 echo -n "Enter the IP you want for the WLAN interface (i.e. 192.168.10.1) and press [ENTER]: "
 read ip
 cp interfaces.ap /etc/network/

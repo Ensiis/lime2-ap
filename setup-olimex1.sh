@@ -5,7 +5,7 @@ apt-get -y remove --purge gnome-* xserver-* desktop-* apache2 crtmpserver
 apt-get -y autoremove  
 apt-get update
 apt-get -y upgrade
-apt-get -y install dnsmasq hostapd build-essential libusb-1.0
+apt-get -y install build-essential libusb-1.0
 
 mkdir /fex
 mount /dev/mmcblk0p1 /fex
