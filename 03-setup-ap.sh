@@ -36,6 +36,8 @@ echo 'up iptables-restore < /etc/iptables.ipv4.nat' >> /etc/network/interfaces.a
 update-rc.d dnsmasq enable
 update-rc.d hostapd enable
 
+rm /etc/udev/rules.d/70-persistent-net.rules
+
 echo -n "The board is going to be rebooted when you press [enter]. The Access point should be running when the board starts."
 read enter
 reboot
