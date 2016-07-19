@@ -18,6 +18,9 @@ make
 cp /fex/script.bin /fex/script.bin.save
 ./fex2bin /root/script.fex /fex/script.bin
 
-echo -n "The board is going to be rebooted when you press [enter]:"
+echo -n "The board is going to be rebooted when you press [enter], and then the partition will be extended. When the board has rebooted, please reconnect."
 read enter
-reboot
+
+echo -n "Resizing "
+cd /root
+./resize_sd.sh /dev/mmcblk0 2
