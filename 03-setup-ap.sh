@@ -6,10 +6,14 @@ sed -ri "s/_IPRANGE/$ip/g" /etc/network/interfaces.ap
 rm /etc/network/interfaces
 ln -s  /etc/network/interfaces.ap  /etc/network/interfaces
 
+echo -n "$ip " >> /etc/hosts
+cat /etc/hostname >> /etc/hosts
+
 echo -n "Enter the start of the IP range used by the DHCP server (i.e. 192.168.10.2) and press [ENTER]: "
 read ipstart
 echo -n "Enter the end of the IP range used by the DHCP server (i.e. 192.168.10.254) and press [ENTER]: "
 read ipend
+cp wlan0 /etc/dnsmasq.d/
 echo "dhcp-range=interface:wlan0,$ipstart,$ipend,96h" > /etc/dnsmasq.d/wlan0
 
 cp hostapd-ap.conf /etc/
