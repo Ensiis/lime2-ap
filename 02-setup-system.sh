@@ -13,6 +13,8 @@ sed -ri "s/A20-OLinuXino/$newhostname/g" /etc/hostname
 #sed -ri "s/A20-OLinuXino/$newhostname/g" /etc/hosts
 echo "127.0.0.1 localhost" > /etc/hosts
 
-echo -n "The board is going to be rebooted when you press [enter]. When the board has rebooted, please connect with your new user, and remove the user olimex for security reasons: sudo deluser olimex"
+echo -n "The board is going to be rebooted when you press [enter], and then the partition will be extended. When the board has rebooted, please connect with your new user, and remove the user olimex for security reasons: sudo deluser olimex"
 read enter
-reboot
+echo -n "Resizing "
+cd /root
+./resize_sd.sh /dev/mmcblk0 2
